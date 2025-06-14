@@ -149,7 +149,7 @@ function loadDashboard() {
 
 // --- GEMINI API CONFIGURATION ---
 // IMPORTANT: For development only. In a production environment, this key should be handled securely on a backend.
-const GEMINI_API_KEY = 'AIzaSyD4xwKx3T0DrB19pdjfAuK8ezrf2bXkVY4';
+const GEMINI_API_KEY = '';
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
 
 
