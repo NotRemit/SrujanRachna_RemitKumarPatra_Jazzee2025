@@ -1,0 +1,734 @@
+/* --- Import Google Fonts (Keep this at the top) --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap'); /* Bolder, rounded for headings */
+
+/* --- "Sex Education" Inspired Dark Theme Variables --- */
+:root {
+    --base-bg: #1A1D24; /* Deep, dark blue/charcoal */
+    --card-bg: #252A34; /* Slightly lighter card background */
+    --card-bg-hover: #2E3440;
+    --text-color: #E5E9F0; /* Light grey/off-white for text */
+    --text-color-muted: #A3ABB2; /* Muted text */
+
+    --primary-accent: #FF69B4; /* Hot Pink */
+    --secondary-accent: #00BFFF; /* Deep Sky Blue / Tealish */
+    --tertiary-accent: #FFD700; /* Gold/Yellow */
+    --action-accent: #32CD32; /* Lime Green */
+
+    --border-color: #3B4252;
+    --border-color-accent: var(--primary-accent);
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --shadow-color-strong: rgba(0, 0, 0, 0.35);
+
+    /* Animated SVG Sprites (Embedded) - Ensure colors are URL-encoded (# -> %23) */
+    --sprite-squiggle: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30" height="30"><path d="M5,25 Q15,5 25,25 T45,25" stroke="%23FFD700" stroke-width="4" fill="none" stroke-linecap="round"><animate attributeName="stroke-dasharray" values="0,100;50,50;100,0" dur="3s" repeatCount="indefinite" /><animate attributeName="stroke-dashoffset" values="0;-50;-100" dur="3s" repeatCount="indefinite" /></path></svg>');
+    --sprite-pulse-dot: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20"><circle cx="10" cy="10" r="6" fill="%23FF69B4"><animate attributeName="r" values="5;8;5" dur="1.5s" repeatCount="indefinite" /><animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite" /></circle></svg>');
+    --sprite-float-triangle: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="25" height="25"><polygon points="15,5 25,25 5,25" fill="%2300BFFF"><animateTransform attributeName="transform" type="translate" values="0,0; 0,-3; 0,3; 0,0" dur="4s" repeatCount="indefinite" ease="easeInOut" /><animateTransform attributeName="transform" type="rotate" values="0 15 15; 10 15 15; -10 15 15; 0 15 15" dur="6s" repeatCount="indefinite" additive="sum" ease="easeInOut" /></polygon></svg>');
+    --sprite-burst-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' width='30' height='30'%3E%3Cdefs%3E%3Cstyle%3E.line%7Bstroke:%2332CD32;stroke-width:2;stroke-linecap:round;animation:burst 2s infinite ease-out forwards;%7D@keyframes burst%7B0%25%7Bstroke-dasharray:0 20;stroke-dashoffset:0;opacity:1;%7D50%25%7Bstroke-dasharray:10 10;stroke-dashoffset:-5;opacity:1;%7D100%25%7Bstroke-dasharray:20 0;stroke-dashoffset:-20;opacity:0;%7D%7D%3C/style%3E%3C/defs%3E%3Cline class='line' x1='20' y1='5' x2='20' y2='15'/%3E%3Cline class='line' x1='20' y1='35' x2='20' y2='25' style='animation-delay:0.1s;'/%3E%3Cline class='line' x1='5' y1='20' x2='15' y2='20' style='animation-delay:0.2s;'/%3E%3Cline class='line' x1='35' y1='20' x2='25' y2='20' style='animation-delay:0.3s;'/%3E%3Cline class='line' x1='10' y1='10' x2='15' y2='15' style='animation-delay:0.4s;' transform='rotate(0 20 20)'/%3E%3Cline class='line' x1='30' y1='30' x2='25' y2='25' style='animation-delay:0.5s;' transform='rotate(0 20 20)'/%3E%3Cline class='line' x1='10' y1='30' x2='15' y2='25' style='animation-delay:0.6s;' transform='rotate(0 20 20)'/%3E%3Cline class='line' x1='30' y1='10' x2='25' y2='15' style='animation-delay:0.7s;' transform='rotate(0 20 20)'/%3E%3C/svg%3E");
+}
+
+/* --- General Animations --- */
+@keyframes fadeInItem {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* --- Base Styles --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--base-bg);
+    color: var(--text-color);
+    margin: 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    background-color: var(--card-bg);
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px var(--shadow-color-strong);
+    margin: 2rem auto;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    position: relative;
+}
+
+.container:hover {
+    /* background-color: var(--card-bg-hover); */
+    /* border-color: var(--secondary-accent); */
+    /* Keep subtle, focus hover on interactive elements */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem; /* Reduced padding */
+    border-bottom: 2px solid var(--primary-accent);
+    position: relative;
+}
+
+header::before {
+    content: var(--sprite-squiggle);
+    position: absolute;
+    bottom: -15px;
+    left: calc(50% - 50px);
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    animation: subtleFloat 4s ease-in-out infinite alternate;
+}
+header::after {
+    content: var(--sprite-float-triangle);
+    position: absolute;
+    bottom: -12px;
+    right: calc(50% - 60px);
+    width: 25px;
+    height: 25px;
+    opacity: 0.8;
+    animation: subtleFloat 5s ease-in-out infinite alternate-reverse;
+}
+
+header h1 {
+    font-family: 'Nunito', sans-serif;
+    color: var(--primary-accent);
+    font-size: 2.6em; /* Slightly adjusted */
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+header p {
+    color: var(--text-color-muted);
+    font-size: 1.15em;
+}
+
+main h2 {
+    font-family: 'Nunito', sans-serif;
+    color: var(--secondary-accent);
+    text-align: center;
+    margin-bottom: 2rem; /* Reduced */
+    font-size: 2em; /* Slightly adjusted */
+    font-weight: 700;
+}
+
+/* --- Form Styles --- */
+#user-info-form div {
+    margin-bottom: 1.5rem; /* Reduced */
+}
+
+#user-info-form label {
+    display: block;
+    margin-bottom: 0.5rem; /* Reduced */
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.05em;
+}
+
+#user-info-form input[type="text"],
+#user-info-form input[type="number"],
+#user-info-form select,
+#chat-input {
+    width: 100%;
+    padding: 0.9rem; /* Adjusted */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: var(--base-bg); /* Darker input bg for contrast */
+    color: var(--text-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+#user-info-form input[type="text"]::placeholder,
+#user-info-form input[type="number"]::placeholder,
+#chat-input::placeholder {
+    color: var(--text-color-muted);
+    opacity: 0.7;
+}
+
+
+#user-info-form input[type="text"]:focus,
+#user-info-form input[type="number"]:focus,
+#user-info-form select:focus,
+#chat-input:focus {
+    border-color: var(--tertiary-accent);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2); /* Gold glow */
+    outline: none;
+    background-color: var(--card-bg); /* Lighter on focus */
+}
+
+button,
+.button, /* Generic button class */
+.back-to-dashboard,
+.back-button,
+.start-over-link {
+    background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+    color: white;
+    padding: 0.9rem 1.8rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05em; /* Adjusted */
+    font-weight: 700;
+    display: inline-block; /* Changed from block for some cases */
+    width: auto; /* Auto width by default */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.8px; /* Reduced */
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    text-decoration: none;
+    text-align: center;
+}
+#user-info-form button[type="submit"], /* Full width for form submit */
+#send-chat-btn { /* Full width for send button */
+    width: 100%;
+}
+
+
+button:hover,
+.button:hover,
+.back-to-dashboard:hover,
+.back-button:hover,
+.start-over-link:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 5px 15px var(--shadow-color);
+    background: linear-gradient(45deg, var(--secondary-accent), var(--action-accent)); /* Shift gradient on hover */
+    color: white; /* Ensure text remains white */
+}
+
+button:active,
+.button:active,
+.back-to-dashboard:active,
+.back-button:active,
+.start-over-link:active {
+    transform: translateY(0px) scale(1);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.start-over-link {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--tertiary-accent);
+    color: var(--tertiary-accent);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9em;
+}
+.start-over-link:hover {
+    background: var(--tertiary-accent);
+    color: var(--base-bg);
+    border-color: var(--tertiary-accent);
+}
+
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1.5rem 1rem; /* Reduced */
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color-muted);
+    font-size: 0.9em;
+    position: relative;
+}
+footer::before {
+    content: var(--sprite-pulse-dot);
+    position: absolute;
+    top: -10px; /* Adjusted position */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+}
+
+
+/* --- Dashboard specific styles --- */
+.dashboard-options, .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); /* Slightly wider min */
+    gap: 2rem; /* Increased gap */
+    padding: 1rem 0;
+}
+
+.option-card, .topic-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden; /* Contain sprites slightly better, can be visible */
+    box-shadow: 0 5px 15px var(--shadow-color);
+    animation: fadeInItem 0.5s ease-out backwards;
+}
+.option-card:nth-child(even), .topic-card:nth-child(even) { animation-delay: 0.1s; }
+.option-card:nth-child(odd), .topic-card:nth-child(odd) { animation-delay: 0.05s; }
+
+
+/* Animated Sprites on Cards */
+.option-card::before, .topic-card::before {
+    content: var(--sprite-float-triangle);
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    width: 25px;
+    height: 25px;
+    opacity: 0.6;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    z-index: 0;
+}
+.option-card::after, .topic-card::after {
+    content: var(--sprite-squiggle);
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    opacity: 0.6;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    z-index: 0;
+}
+.option-card:nth-child(even)::before, .topic-card:nth-child(even)::before {
+    content: var(--sprite-pulse-dot);
+    top: -10px; right: -10px; left: auto;
+}
+.option-card:nth-child(even)::after, .topic-card:nth-child(even)::after {
+    content: var(--sprite-burst-lines);
+    bottom: -12px; left: -12px; right: auto;
+    transform: scale(0.8);
+}
+
+.option-card:hover, .topic-card:hover {
+    background-color: var(--card-bg-hover);
+    transform: translateY(-5px) scale(1.03); /* More pronounced lift */
+    border-color: var(--primary-accent);
+    box-shadow: 0 8px 25px var(--shadow-color-strong);
+}
+.option-card:hover::before, .topic-card:hover::before,
+.option-card:hover::after, .topic-card:hover::after {
+    transform: scale(1.15) rotate(8deg);
+    opacity: 0.9;
+}
+
+.option-card h3, .topic-card h3 {
+    font-family: 'Nunito', sans-serif;
+    margin: 0 0 0.8rem 0; /* Reduced margin */
+    color: var(--primary-accent);
+    font-size: 1.4em; /* Adjusted */
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.option-card p, .topic-card p {
+    color: var(--text-color-muted);
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    font-size: 0.9em; /* Adjusted */
+    line-height: 1.5;
+}
+
+/* --- Chatbot specific styles --- */
+#chat-container {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    height: 380px; /* Slightly reduced */
+    overflow-y: auto;
+    padding: 1.2rem; /* Adjusted */
+    margin-bottom: 1.2rem;
+    background-color: var(--base-bg);
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message {
+    margin-bottom: 1rem;
+    padding: 0.9rem 1.1rem; /* Adjusted */
+    border-radius: 18px; /* More rounded */
+    max-width: 75%; /* Reduced max-width */
+    word-wrap: break-word;
+    animation: fadeInItem 0.3s ease backwards;
+    border: 1px solid transparent;
+    position: relative;
+    line-height: 1.5;
+}
+
+.user-message {
+    background: linear-gradient(135deg, var(--primary-accent), var(--tertiary-accent));
+    color: #1A1D24; /* Dark text for better contrast on bright gradient */
+    margin-left: auto;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px; /* Chat bubble tail effect */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.bot-message {
+    background: var(--card-bg-hover); /* Slightly different from user for distinction */
+    color: var(--text-color);
+    margin-right: auto;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px; /* Chat bubble tail effect */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+#chat-input-area {
+    display: flex;
+    gap: 0.8rem; /* Reduced gap */
+    margin-top: 1rem;
+}
+#chat-input {
+    flex-grow: 1; /* Input takes available space */
+}
+#send-chat-btn {
+    width: auto; /* Auto width, text defines it */
+    flex-shrink: 0; /* Prevent shrinking */
+    padding: 0.9rem 1.5rem; /* Specific padding */
+}
+
+
+/* --- Roleplay specific styles --- */
+#roleplay-scenario-container, #conversation-log, .topic-detail, #story-container, #reflection-questions-container {
+    background: var(--card-bg); /* Standard card bg */
+    border-radius: 12px;
+    padding: 1.8rem; /* Adjusted padding */
+    margin-bottom: 1.8rem;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    animation: fadeInItem 0.4s ease-out;
+    position: relative; /* For potential pseudo-elements */
+}
+
+#scenario-text, #ai-opening-line, #story-text, #topic-content p {
+    font-size: 1.05em;
+    line-height: 1.7;
+    color: var(--text-color);
+}
+#scenario-text strong, #ai-opening-line strong, #story-text strong {
+    color: var(--secondary-accent);
+    font-weight: 600;
+}
+
+
+#roleplay-choices-container, #user-response-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Reduced gap */
+    margin-top: 1rem;
+}
+#roleplay-choices-container button, #user-response-suggestions button, #talksim-topic-selection button {
+    background: var(--card-bg);
+    border: 1px solid var(--secondary-accent);
+    color: var(--secondary-accent);
+    width: 100%; /* Full width for choices */
+    padding: 0.8rem 1.2rem;
+    text-transform: none; /* Normal case for choices */
+    letter-spacing: normal;
+    font-weight: 500; /* Poppins regular */
+    font-family: 'Poppins', sans-serif;
+}
+#roleplay-choices-container button:hover, #user-response-suggestions button:hover, #talksim-topic-selection button:hover {
+    background: var(--secondary-accent);
+    color: white;
+    border-color: var(--secondary-accent);
+    transform: translateY(-2px) scale(1.01); /* Subtle hover for these buttons */
+}
+
+
+#roleplay-feedback-container {
+    background: var(--base-bg);
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-top: 1.5rem;
+    animation: fadeInItem 0.3s ease backwards;
+    border: 1px dashed var(--tertiary-accent);
+    color: var(--text-color-muted);
+}
+#feedback-text {
+    font-style: italic;
+}
+
+#next-scenario-btn, #new-story-btn, #restart-talksim-btn {
+    margin-top: 1.5rem;
+    display: block; /* Make it block by default */
+    width: auto; /* Adjust if needed, or set to 100% */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Talk Simulator specific styles --- */
+#talksim-topic-selection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+#talksim-topic-selection button {
+    border-color: var(--action-accent);
+    color: var(--action-accent);
+}
+#talksim-topic-selection button:hover {
+    background: var(--action-accent);
+    color: white;
+    border-color: var(--action-accent);
+}
+#conversation-log {
+    height: 250px; /* Increased height */
+    overflow-y: auto;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--base-bg); /* Darker for log */
+    border-radius: 8px;
+}
+#conversation-log p {
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px dashed var(--border-color);
+    font-size: 0.95em;
+}
+#conversation-log p:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+#ai-opening-line {
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: var(--text-color-muted);
+    padding: 0.8rem;
+    background-color: var(--base-bg);
+    border-radius: 6px;
+}
+
+
+/* --- Stories specific styles --- */
+#story-container {
+    padding: 2rem;
+    border-left: 5px solid var(--primary-accent);
+}
+
+#story-title {
+    font-family: 'Nunito', sans-serif;
+    color: var(--secondary-accent);
+    font-size: 1.7em; /* Adjusted */
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-align: left; /* Align to left with border */
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+#story-title::after {
+    content: var(--sprite-burst-lines);
+    position: absolute;
+    bottom: -5px;
+    left: 0; /* Align with text */
+    transform: scale(0.7);
+    width: 30px;
+    height: 30px;
+}
+
+#story-text {
+    font-size: 1.05em;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    padding: 1rem 0; /* Remove internal padding, use container's */
+    background: transparent; /* Inherit from story-container */
+    border-radius: 0;
+    border-left: none; /* Remove this internal border */
+}
+
+#reflection-questions-container {
+    border-top: 2px dashed var(--tertiary-accent);
+    margin-top: 2rem;
+    padding-top: 2rem;
+    background: transparent; /* Remove distinct bg, keep it part of story area */
+    box-shadow: none;
+    border-left: 5px solid var(--tertiary-accent);
+}
+
+#reflection-questions-container h4 {
+    font-family: 'Nunito', sans-serif;
+    color: var(--tertiary-accent);
+    font-size: 1.3em; /* Adjusted */
+    margin-bottom: 1rem;
+    text-align: left;
+    font-weight: 700;
+}
+
+#reflection-questions-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#reflection-questions-container li {
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem; /* Adjusted */
+    background: var(--base-bg); /* Darker background for questions */
+    border-radius: 6px;
+    position: relative;
+    border: 1px solid var(--border-color);
+    padding-left: 2.8rem; /* Space for icon */
+    font-size: 0.95em;
+    color: var(--text-color-muted);
+}
+
+#reflection-questions-container li:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--tertiary-accent);
+    color: var(--text-color);
+}
+
+#reflection-questions-container li::before {
+    content: '💡'; /* Changed emoji */
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3em;
+    opacity: 0.8;
+}
+
+
+/* --- Learn page specific styles --- */
+.topic-detail {
+    border-left: 5px solid var(--secondary-accent);
+}
+#topic-title {
+    color: var(--secondary-accent);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.8em;
+    margin-bottom: 1rem;
+}
+#topic-content {
+    font-size: 1.05em;
+    line-height: 1.8;
+}
+#topic-content h3, #topic-content h4 { /* For headings within learn content */
+    color: var(--tertiary-accent);
+    font-family: 'Nunito', sans-serif;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+#topic-content ul, #topic-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+#topic-content li {
+    margin-bottom: 0.5rem;
+}
+.back-button {
+    margin-bottom: 1.5rem;
+}
+
+/* --- Utility Loading Animation (Shimmer for dark theme) --- */
+@keyframes shimmerDark {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.loading-placeholder {
+    background: linear-gradient(90deg, var(--card-bg) 25%, var(--card-bg-hover) 50%, var(--card-bg) 75%);
+    background-size: 2000px 100%; /* Wide gradient for smooth shimmer */
+    animation: shimmerDark 1.8s infinite linear;
+    border-radius: 8px;
+    /* height and margin set inline for flexibility */
+    border: 1px solid var(--border-color);
+    color: transparent !important; /* Hide text during loading */
+}
+.loading-placeholder::before, .loading-placeholder::after {
+    display: none !important; /* Hide sprites on placeholders */
+}
+.option-card.loading-placeholder, .topic-card.loading-placeholder {
+    padding: 1.8rem; /* Match card padding */
+}
+
+/* Ensure back-to-dashboard buttons are styled consistently */
+.back-to-dashboard {
+    display: block; /* Full width for easier tapping */
+    width: 100%;
+    margin-top: 2rem; /* Spacing from content */
+    max-width: 300px; /* Optional: constrain width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-page > main > .back-to-dashboard {
+     margin-top: 2rem; /* Add space before the button if it's the last element in main */
+}
+
+/* Error messages */
+.error-message {
+    color: var(--primary-accent);
+    background-color: rgba(255, 105, 180, 0.1);
+    border: 1px solid var(--primary-accent);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+/* Specific button overrides where needed */
+#new-story-btn {
+    /* background: linear-gradient(45deg, var(--action-accent), var(--tertiary-accent)); */
+}
+#new-story-btn:hover {
+    /* background: linear-gradient(45deg, var(--tertiary-accent), var(--action-accent)); */
+}
+
+/* In style.css, potentially add or adjust */
+#talksim-qualities {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95em;
+    background-color: var(--base-bg);
+    color: var(--text-color);
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px;
+}
+
+#talksim-qualities:focus {
+    border-color: var(--tertiary-accent);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+    outline: none;
+    background-color: var(--card-bg);
+}
+
+#user-input-area-talksim input[type="text"] {
+    width: 100%; /* Should already be covered by general input styles */
+    flex-grow: 1;
+}
+
+#ai-current-line { /* Style for where AI's direct speech appears */
+    padding: 1rem;
+    background-color: var(--base-bg); /* Or a slightly different shade */
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-accent);
+    color: var(--text-color);
+    min-height: 50px; /* Ensure it has some height even when loading */
+}
+
+#qualities-prompt-heading {
+    font-size: 1.2em;
+    color: var(--secondary-accent);
+    margin-bottom: 0.8rem;
+    font-family: 'Nunito', sans-serif;
+}

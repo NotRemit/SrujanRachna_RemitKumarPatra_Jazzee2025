@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Whispers - Talk Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container content-page">
+        <header>
+            <h1 id="talksim-greeting">Talk Simulator</h1>
+            <p>Practice important conversations, your way.</p>
+        </header>
+        <main>
+            <!-- Step 1: Topic Selection -->
+            <div id="talksim-topic-selection" style="margin-bottom: 20px;">
+                <p>Who would you like to simulate a conversation with?</p>
+                <button data-topic="parent">A Parent/Guardian</button>
+                <button data-topic="partner">A Partner</button>
+                <button data-topic="friend">A Friend</button>
+                <button data-topic="teacher">A Teacher</button>
+            </div>
+
+            <!-- Step 2: Qualities Input (Initially Hidden) -->
+            <div id="talksim-qualities-input-area" style="display: none; margin-bottom: 20px;">
+                <h3 id="qualities-prompt-heading"></h3>
+                <textarea id="talksim-qualities" rows="3" placeholder="E.g., 'strict but usually fair', 'very understanding and modern', 'a bit traditional and worried'"></textarea>
+                <button id="start-simulation-with-qualities-btn" style="margin-top: 10px;">Start Simulation</button>
+            </div>
+
+            <!-- Step 3: Conversation Area (Initially Hidden) -->
+            <div id="talksim-conversation-area" style="display: none;">
+                <h3 id="conversation-topic-display"></h3>
+                <div id="conversation-log">
+                    <p><em>Conversation will appear here...</em></p>
+                </div>
+                <div id="ai-current-line" class="loading-placeholder" style="height: 60px; margin-bottom: 10px; font-style: italic;">
+                    <!-- AI's current line will appear here -->
+                </div>
+                <div id="user-input-area-talksim" style="display: flex; gap: 0.8rem; margin-top:1rem;">
+                    <input type="text" id="user-talksim-input" placeholder="Type your response...">
+                    <button id="send-talksim-response-btn">Send</button>
+                </div>
+                <button id="restart-talksim-btn" style="display: none; margin-top: 15px;">Start New Simulation</button>
+            </div>
+
+            <a href="dashboard.html" class="back-to-dashboard">Back to Dashboard</a>
+        </main>
+        <footer>
+            <p>© 2024 Beyond Whispers. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

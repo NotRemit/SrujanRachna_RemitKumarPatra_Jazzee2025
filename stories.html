@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Whispers - Interactive Stories</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container content-page">
+        <header>
+            <h1 id="stories-greeting">Interactive Stories</h1>
+            <p>Learn through engaging narratives and reflections.</p>
+        </header>
+        <main>
+            <div id="story-container" class="loading-placeholder">
+                <h3 id="story-title">Loading Story...</h3>
+                <p id="story-text"></p>
+            </div>
+            <div id="reflection-questions-container">
+                <h4>Reflection Questions:</h4>
+                <ul id="questions-list">
+                    <li class="loading-placeholder" style="height: 30px;"><em>Questions will appear here...</em></li>
+                     <li class="loading-placeholder" style="height: 30px; margin-top:10px;"></li>
+                </ul>
+            </div>
+            <button id="new-story-btn">Get Another Story</button>
+            <a href="dashboard.html" class="back-to-dashboard" style="margin-top: 10px;">Back to Dashboard</a>
+        </main>
+        <footer>
+            <p>© 2024 Beyond Whispers. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
